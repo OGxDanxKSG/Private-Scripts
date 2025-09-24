@@ -120,7 +120,7 @@ Window.SliceCenter = Rect.new(12, 12, 12, 12)
 Resizer.Name = "Resizer"
 Resizer.Parent = Window
 Resizer.Active = true
-Resizer.BackgroundColor3 = Color3.new(1, 1, 1)
+Resizer.BackgroundColor3 = Color3.new(255, 255, 255)
 Resizer.BackgroundTransparency = 1
 Resizer.BorderSizePixel = 0
 Resizer.Position = UDim2.new(1, -20, 1, -20)
@@ -144,7 +144,7 @@ coroutine.wrap(function()
 		Toggle.Rotation = 0
 	end
 end)()
-Toggle.Size = UDim2.new(0, 15, 0, 15)
+Toggle.Size = UDim2.new(0, 20, 0, 20)
 Toggle.ZIndex = 2
 Toggle.Image = "https://www.roblox.com/Thumbs/Asset.ashx?width=420&height=420&assetId=8159380929"
 
