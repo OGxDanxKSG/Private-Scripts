@@ -135,7 +135,7 @@ Bar.Size = UDim2.new(1, 0, 0, 15)
 
 Toggle.Name = "Toggle"
 Toggle.Parent = Bar
-Toggle.BackgroundColor3 = Color3.new(255, 255, 255)
+Toggle.BackgroundColor3 = Color3.new(2, 2, 2)
 Toggle.BackgroundTransparency = 1
 Toggle.Position = UDim2.new(0, 5, 0, -2)
 Toggle.Rotation = 0
@@ -144,7 +144,7 @@ coroutine.wrap(function()
 		Toggle.Rotation = 0
 	end
 end)()
-Toggle.Size = UDim2.new(0, 10, 0, 10)
+Toggle.Size = UDim2.new(0, 15, 0, 15)
 Toggle.ZIndex = 2
 Toggle.Image = "https://www.roblox.com/Thumbs/Asset.ashx?width=420&height=420&assetId=8159380929"
 
