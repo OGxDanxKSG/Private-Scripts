@@ -1,0 +1,503 @@
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library//main/Library", true))()
+
+local window = library:AddWindow("Muscle Legends V5 | Made By Ollie", {
+	main_color = Color3.fromRGB(41, 74, 122), 
+	min_size = Vector2.new(450, 450),
+	can_resize = false, 
+})
+
+local Main = window:AddTab("Main")
+
+Main:AddLabel("Player Settings")
+
+Main:AddTextBox("Set Speed 1-500",function(text)
+	
+end)
+
+Main:AddSwitch("Set Speed",function()
+
+end)
+
+local vu500 = v465:AddTab("Players")
+    local vu501 = {}
+    local vu502 = nil
+    local vu503 = nil
+    local function vu505(p504)
+        if p504 >= 1000000000000000 then
+            return string.format("%.1fQa", p504 / 1000000000000000)
+        elseif p504 >= 1000000000000 then
+            return string.format("%.1fT", p504 / 1000000000000)
+        elseif p504 >= 1000000000 then
+            return string.format("%.1fB", p504 / 1000000000)
+        elseif p504 >= 1000000 then
+            return string.format("%.1fM", p504 / 1000000)
+        elseif p504 >= 1000 then
+            return string.format("%.1fK", p504 / 1000)
+        else
+            return tostring(p504)
+        end
+    end
+    local function vu520(pu506)
+        local v507 = pu506.Name
+        local vu508 = pu506:FindFirstChild("leaderstats")
+        local v509 = pu506:FindFirstChild("equippedPets")
+        local v510 = pu506:FindFirstChild("ownedGamepasses")
+        local vu511 = {
+            StrengthLabel = vu500:AddLabel("Strength: " .. vu505(vu508.Strength.Value or 0)),
+            DurabilityLabel = vu500:AddLabel("Durability: " .. vu505(pu506.Durability.Value or 0)),
+            KillsLabel = vu500:AddLabel("Kills: " .. vu505(vu508.Kills.Value or 0)),
+            BrawlsLabel = vu500:AddLabel("Brawls: " .. vu505(vu508.Brawls.Value or 0)),
+            AgilityLabel = vu500:AddLabel("Agility: " .. vu505(pu506.Agility.Value or 0)),
+            EvilKarmaLabel = vu500:AddLabel("evilKarma: " .. vu505(pu506.evilKarma.Value or 0)),
+            GoodKarmaLabel = vu500:AddLabel("goodKarma: " .. vu505(pu506.goodKarma.Value or 0)),
+            MapLabel = vu500:AddLabel("Map: " .. (pu506.currentMap.Value or "N/A")),
+            KingTimeLabel = vu500:AddLabel("KingTime: " .. vu505(pu506.muscleKingTime.Value or 0)),
+            PremiumLabel = vu500:AddLabel("Premium: " .. (pu506.MembershipType == Enum.MembershipType.Premium and "true" or "false"))
+        }
+        for v512 = 1, 5 do
+            local v513 = v509:FindFirstChild("pet" .. v512) and (v509["pet" .. v512].Value or "N/A") or "N/A"
+            local v514 = vu500
+            vu511["Pet" .. v512 .. "Label"] = v514:AddLabel("Pet" .. v512 .. ": " .. tostring(v513))
+        end
+        local v515 = {}
+        if v510 then
+            local v516, v517, v518 = ipairs(v510:GetChildren())
+            while true do
+                local v519
+                v518, v519 = v516(v517, v518)
+                if v518 == nil then
+                    break
+                end
+                table.insert(v515, v519.Name)
+            end
+        end
+        vu511.GamepassesLabel = vu500:AddLabel("ownedGamepasses: " .. (# v515 > 0 and table.concat(v515, ", ") or "N/A"))
+        vu501[v507] = vu511
+        vu508.Kills.Changed:Connect(function()
+            vu511.KillsLabel.Text = "Kills: " .. vu505(vu508.Kills.Value or 0)
+        end)
+        vu508.Strength.Changed:Connect(function()
+            vu511.StrengthLabel.Text = "Strength: " .. vu505(vu508.Strength.Value or 0)
+        end)
+        vu508.Brawls.Changed:Connect(function()
+            vu511.BrawlsLabel.Text = "Brawls: " .. vu505(vu508.Brawls.Value or 0)
+        end)
+        pu506.Durability.Changed:Connect(function()
+            vu511.DurabilityLabel.Text = "Durability: " .. vu505(pu506.Durability.Value or 0)
+        end)
+        pu506.Agility.Changed:Connect(function()
+            vu511.AgilityLabel.Text = "Agility: " .. vu505(pu506.Agility.Value or 0)
+        end)
+        pu506.evilKarma.Changed:Connect(function()
+            vu511.EvilKarmaLabel.Text = "evilKarma: " .. vu505(pu506.evilKarma.Value or 0)
+        end)
+        pu506.goodKarma.Changed:Connect(function()
+            vu511.GoodKarmaLabel.Text = "goodKarma: " .. vu505(pu506.goodKarma.Value or 0)
+        end)
+        pu506.currentMap.Changed:Connect(function()
+            vu511.MapLabel.Text = "Map: " .. (pu506.currentMap.Value or "N/A")
+        end)
+        pu506.muscleKingTime.Changed:Connect(function()
+            vu511.KingTimeLabel.Text = "KingTime: " .. vu505(pu506.muscleKingTime.Value or 0)
+        end)
+    end
+    local function vu527(p521)
+        local v522 = vu501[p521]
+        if v522 then
+            local v523, v524, v525 = pairs(v522)
+            while true do
+                local v526
+                v525, v526 = v523(v524, v525)
+                if v525 == nil then
+                    break
+                end
+                v526:Remove()
+            end
+            vu501[p521] = nil
+        end
+    end
+    local v528 = vu500
+    vu500.AddTextBox(v528, "Player Name", function(p529)
+        local v530 = game.Players:FindFirstChild(p529)
+        if vu503 then
+            vu503:Remove()
+            vu503 = nil
+        end
+        if v530 then
+            if vu502 then
+                vu527(vu502)
+            end
+            vu520(v530)
+            vu502 = p529
+        else
+            if vu503 == nil then
+                vu503 = vu500:AddLabel("Player not found!")
+            end
+            if vu502 then
+                vu527(vu502)
+            end
+            vu502 = nil
+        end
+    end)
+    game.Players.PlayerRemoving:Connect(function(p531)
+        if vu502 == p531.Name then
+            vu527(p531.Name)
+            vu502 = nil
+        end
+    end)
+    game.Players.PlayerAdded:Connect(function(_)
+    end)
+    local vu532 = nil
+    local vu533 = nil
+    local function vu542(p534)
+        local v535, v536, v537 = ipairs(game.Players:GetPlayers())
+        local v538 = nil
+        while true do
+            local v539
+            v537, v539 = v535(v536, v537)
+            if v537 == nil then
+                v539 = v538
+                break
+            end
+            if v539.Name:lower():match(p534:lower()) then
+                break
+            end
+        end
+        if v539 then
+            local function v541(p540)
+                game.Workspace.CurrentCamera.CameraSubject = p540
+            end
+            v541(v539.Character or v539.CharacterAdded:Wait())
+            if vu532 then
+                vu532:Disconnect()
+                vu532 = nil
+            end
+            vu532 = v539.CharacterAdded:Connect(v541)
+            vu533 = v539
+        end
+    end
+    local v543 = vu500
+    vu500.AddTextBox(v543, "View Player", function(p544)
+        vu542(p544)
+    end)
+    local v545 = vu500
+    vu500.AddButton(v545, "Unview Player", function()
+        if vu532 then
+            vu532:Disconnect()
+            vu532 = nil
+        end
+        local v546 = game.Players.LocalPlayer
+        game.Workspace.CurrentCamera.CameraSubject = v546.Character or v546.CharacterAdded:Wait()
+        vu533 = nil
+    end)
+    local v547 = v465:AddTab("Leaderboard")
+    v547:AddButton("Copy King LB", function()
+        local v548 = game.Workspace.muscleKingLeaderboard.leaderboardPart.leaderboardGui.playerList.innerFrame
+        if v548 then
+            local v549, v550, v551 = pairs(v548:GetChildren())
+            local v552 = {}
+            local v553 = "[\"muscleKingLeaderboard\"] = {\n"
+            while true do
+                local v554
+                v551, v554 = v549(v550, v551)
+                if v551 == nil then
+                    break
+                end
+                local v555, v556, v557 = pairs(v554:GetChildren())
+                local v558 = ""
+                local v559 = ""
+                local v560 = ""
+                while true do
+                    local v561
+                    v557, v561 = v555(v556, v557)
+                    if v557 == nil then
+                        break
+                    end
+                    if v561:IsA("TextLabel") then
+                        if v561.Name ~= "nameLabel" then
+                            if v561.Name ~= "amountLabel" then
+                                if v561.Name == "rankLabel" then
+                                    v560 = v561.Text
+                                end
+                            else
+                                v559 = v561.Text
+                            end
+                        else
+                            v558 = v561.Text
+                        end
+                    end
+                end
+                if v558 ~= "" and (v559 ~= "" and v560 ~= "") then
+                    table.insert(v552, {
+                        v558,
+                        v559,
+                        v560
+                    })
+                end
+            end
+            local v562, v563, v564 = pairs(v552)
+            while true do
+                local v565
+                v564, v565 = v562(v563, v564)
+                if v564 == nil then
+                    break
+                end
+                local v566 = v553 .. "  {\"" .. v565[1] .. "\", \"" .. v565[2] .. "\", \"" .. v565[3] .. "\"}"
+                if v564 >= # v552 then
+                    v553 = v566 .. "\n"
+                else
+                    v553 = v566 .. ",\n"
+                end
+            end
+            local v567 = v553 .. "},"
+            setclipboard(v567)
+        end
+    end)
+    v547:AddButton("Copy Strength LB", function()
+        local v568 = game.Workspace.strengthLeaderboard.leaderboardPart.leaderboardGui.playerList.innerFrame
+        if v568 then
+            local v569, v570, v571 = pairs(v568:GetChildren())
+            local v572 = {}
+            local v573 = "[\"strengthLeaderboard\"] = {\n"
+            while true do
+                local v574
+                v571, v574 = v569(v570, v571)
+                if v571 == nil then
+                    break
+                end
+                local v575, v576, v577 = pairs(v574:GetChildren())
+                local v578 = ""
+                local v579 = ""
+                local v580 = ""
+                while true do
+                    local v581
+                    v577, v581 = v575(v576, v577)
+                    if v577 == nil then
+                        break
+                    end
+                    if v581:IsA("TextLabel") then
+                        if v581.Name ~= "nameLabel" then
+                            if v581.Name ~= "amountLabel" then
+                                if v581.Name == "rankLabel" then
+                                    v580 = v581.Text
+                                end
+                            else
+                                v579 = v581.Text
+                            end
+                        else
+                            v578 = v581.Text
+                        end
+                    end
+                end
+                if v578 ~= "" and (v579 ~= "" and v580 ~= "") then
+                    table.insert(v572, {
+                        v578,
+                        v579,
+                        v580
+                    })
+                end
+            end
+            local v582, v583, v584 = pairs(v572)
+            while true do
+                local v585
+                v584, v585 = v582(v583, v584)
+                if v584 == nil then
+                    break
+                end
+                local v586 = v573 .. "  {\"" .. v585[1] .. "\", \"" .. v585[2] .. "\", \"" .. v585[3] .. "\"}"
+                if v584 >= # v572 then
+                    v573 = v586 .. "\n"
+                else
+                    v573 = v586 .. ",\n"
+                end
+            end
+            local v587 = v573 .. "},"
+            setclipboard(v587)
+        end
+    end)
+    v547:AddButton("Copy Kills LB", function()
+        local v588 = game.Workspace.killsLeaderboard.leaderboardPart.leaderboardGui.playerList.innerFrame
+        if v588 then
+            local v589, v590, v591 = pairs(v588:GetChildren())
+            local v592 = {}
+            local v593 = "[\"killsLeaderboard\"] = {\n"
+            while true do
+                local v594
+                v591, v594 = v589(v590, v591)
+                if v591 == nil then
+                    break
+                end
+                local v595, v596, v597 = pairs(v594:GetChildren())
+                local v598 = ""
+                local v599 = ""
+                local v600 = ""
+                while true do
+                    local v601
+                    v597, v601 = v595(v596, v597)
+                    if v597 == nil then
+                        break
+                    end
+                    if v601:IsA("TextLabel") then
+                        if v601.Name ~= "nameLabel" then
+                            if v601.Name ~= "amountLabel" then
+                                if v601.Name == "rankLabel" then
+                                    v600 = v601.Text
+                                end
+                            else
+                                v599 = v601.Text
+                            end
+                        else
+                            v598 = v601.Text
+                        end
+                    end
+                end
+                if v598 ~= "" and (v599 ~= "" and v600 ~= "") then
+                    table.insert(v592, {
+                        v598,
+                        v599,
+                        v600
+                    })
+                end
+            end
+            local v602, v603, v604 = pairs(v592)
+            while true do
+                local v605
+                v604, v605 = v602(v603, v604)
+                if v604 == nil then
+                    break
+                end
+                local v606 = v593 .. "  {\"" .. v605[1] .. "\", \"" .. v605[2] .. "\", \"" .. v605[3] .. "\"}"
+                if v604 >= # v592 then
+                    v593 = v606 .. "\n"
+                else
+                    v593 = v606 .. ",\n"
+                end
+            end
+            local v607 = v593 .. "},"
+            setclipboard(v607)
+        end
+    end)
+    v547:AddButton("Copy Rebs LB", function()
+        local v608 = game.Workspace.rebirthsLeaderboard.leaderboardPart.leaderboardGui.playerList.innerFrame
+        if v608 then
+            local v609, v610, v611 = pairs(v608:GetChildren())
+            local v612 = {}
+            local v613 = "[\"rebirthsLeaderboard\"] = {\n"
+            while true do
+                local v614
+                v611, v614 = v609(v610, v611)
+                if v611 == nil then
+                    break
+                end
+                local v615, v616, v617 = pairs(v614:GetChildren())
+                local v618 = ""
+                local v619 = ""
+                local v620 = ""
+                while true do
+                    local v621
+                    v617, v621 = v615(v616, v617)
+                    if v617 == nil then
+                        break
+                    end
+                    if v621:IsA("TextLabel") then
+                        if v621.Name ~= "nameLabel" then
+                            if v621.Name ~= "amountLabel" then
+                                if v621.Name == "rankLabel" then
+                                    v620 = v621.Text
+                                end
+                            else
+                                v619 = v621.Text
+                            end
+                        else
+                            v618 = v621.Text
+                        end
+                    end
+                end
+                if v618 ~= "" and (v619 ~= "" and v620 ~= "") then
+                    table.insert(v612, {
+                        v618,
+                        v619,
+                        v620
+                    })
+                end
+            end
+            local v622, v623, v624 = pairs(v612)
+            while true do
+                local v625
+                v624, v625 = v622(v623, v624)
+                if v624 == nil then
+                    break
+                end
+                local v626 = v613 .. "  {\"" .. v625[1] .. "\", \"" .. v625[2] .. "\", \"" .. v625[3] .. "\"}"
+                if v624 >= # v612 then
+                    v613 = v626 .. "\n"
+                else
+                    v613 = v626 .. ",\n"
+                end
+            end
+            local v627 = v613 .. "},"
+            setclipboard(v627)
+        end
+    end)
+    v547:AddButton("Copy Brawl LB", function()
+        local v628 = game.Workspace.brawlsLeaderboard.leaderboardPart.leaderboardGui.playerList.innerFrame
+        if v628 then
+            local v629, v630, v631 = pairs(v628:GetChildren())
+            local v632 = {}
+            local v633 = "[\"brawlsLeaderboard\"] = {\n"
+            while true do
+                local v634
+                v631, v634 = v629(v630, v631)
+                if v631 == nil then
+                    break
+                end
+                local v635, v636, v637 = pairs(v634:GetChildren())
+                local v638 = ""
+                local v639 = ""
+                local v640 = ""
+                while true do
+                    local v641
+                    v637, v641 = v635(v636, v637)
+                    if v637 == nil then
+                        break
+                    end
+                    if v641:IsA("TextLabel") then
+                        if v641.Name ~= "nameLabel" then
+                            if v641.Name ~= "amountLabel" then
+                                if v641.Name == "rankLabel" then
+                                    v640 = v641.Text
+                                end
+                            else
+                                v639 = v641.Text
+                            end
+                        else
+                            v638 = v641.Text
+                        end
+                    end
+                end
+                if v638 ~= "" and (v639 ~= "" and v640 ~= "") then
+                    table.insert(v632, {
+                        v638,
+                        v639,
+                        v640
+                    })
+                end
+            end
+            local v642, v643, v644 = pairs(v632)
+            while true do
+                local v645
+                v644, v645 = v642(v643, v644)
+                if v644 == nil then
+                    break
+                end
+                local v646 = v633 .. "  {\"" .. v645[1] .. "\", \"" .. v645[2] .. "\", \"" .. v645[3] .. "\"}"
+                if v644 >= # v632 then
+                    v633 = v646 .. "\n"
+                else
+                    v633 = v646 .. ",\n"
+                end
+            end
+            local v647 = v633 .. "},"
+            setclipboard(v647)
+        end
+    end)
